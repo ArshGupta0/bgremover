@@ -20,6 +20,8 @@ const clerkWebhooks = async (req, res) => {
         const { data, type } = req.body
 
         // Switch Cases for differernt Events
+        console.log("Webhook data:", JSON.stringify(data, null, 2));
+
         switch (type) {
             case 'user.created': {
                 const userData = {
