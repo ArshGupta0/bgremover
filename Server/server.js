@@ -13,6 +13,6 @@ app.use(cors())
 
 //API routes
 app.get('/',(req,res)=>res.send("API working"))
-app.use('/api/user',userRouter)
+app.use('/api/user/webhooks',userRouter)
 
 app.listen(PORT,()=> console.log("Server Running on port"+PORT))
