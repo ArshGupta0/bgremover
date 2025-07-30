@@ -2,6 +2,8 @@
 //http://localhost:4000/api/user/webhooks
 import {Webhook} from 'svix'
 import userModel from '../models/userModels.js'
+
+
 const clerkWebhooks = async (req, res) => {
 
     try {
@@ -20,8 +22,6 @@ const clerkWebhooks = async (req, res) => {
         const { data, type } = req.body
 
         // Switch Cases for differernt Events
-        console.log("Webhook data:", JSON.stringify(data, null, 2));
-
         switch (type) {
             case 'user.created': {
                 const userData = {
@@ -64,4 +64,21 @@ const clerkWebhooks = async (req, res) => {
     }
 
 }
-export {clerkWebhooks};
+
+
+
+const userCredits = async (req, res) => {
+    try {
+
+        const { clerkId } = req.body
+
+        // Fetching userdata using ClerkId
+        const userData = await userModel.findOne({ clerkId })
+        res.json({ success: true, credits: userData.creditBalance })
+
+    } catch (error) {
+        console.log(error.message)
+        res.json({ success: false, message: error.message })
+    }
+}
+export { clerkWebhooks, userCredits }
